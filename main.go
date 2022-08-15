@@ -49,11 +49,6 @@ func main() {
 
 	apiGroup := e.Group("/api/v1")
 
-	/*
-		SEARCH
-		* This you can search for hotspot name, hotspot hash, wallet hash, transaction hash, block number
-		* In the future want to also add other features such as hex and address lookups
-	*/
 	apiGroup.GET("/search/:query/", handlers.Search)
 
 	/* HOMEPAGE STATS */
@@ -66,8 +61,8 @@ func main() {
 	/* TRANSACTIONS */
 	apiGroup.GET("/transactions/", handlers.GetTransactions)
 	apiGroup.GET("/transactions/:tx/", handlers.GetSingleTransaction)
-	apiGroup.GET("/transactions/:tx/rewards/", handlers.GetRewardTxPagination) // this is to paginate the data for, rewards
-
+	apiGroup.GET("/transactions/:tx/rewards/", handlers.GetRewardTxPagination) 
+	
 	/* HOTSPOTS */
 	apiGroup.GET("/hotspots/", handlers.GetHotspots)
 	apiGroup.GET("/hotspots/:hash/", handlers.GetSingleHotspot)
