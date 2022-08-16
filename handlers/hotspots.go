@@ -497,7 +497,7 @@ func GetLastHotspot() LastHotspot {
 										h.name,
 										h.location,
 										l.long_country,
-										l.short_country,
+										l.short_country
 									FROM
 										gateway_inventory h
 										INNER JOIN locations l ON h.location = l.location
