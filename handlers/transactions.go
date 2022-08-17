@@ -24,6 +24,8 @@ func GetTransactions(c echo.Context) error {
 		page = "0"
 	}
 
+	txType := c.QueryParam("type")
+
 	offset, err := strconv.Atoi(page)
 	if err != nil {
 		fmt.Println("GetTransactions", err)
@@ -41,7 +43,14 @@ func GetTransactions(c echo.Context) error {
 
 		if err == memcache.ErrCacheMiss {
 
-			rows, err := db.DB.Query("SELECT block, hash, type, time, fields FROM transactions ORDER BY block DESC LIMIT $1 OFFSET $2", limit, offset)
+			var rows *sql.Rows
+
+			if txType == "" {
+				rows, err = db.DB.Query("SELECT block, hash, type, time, fields FROM transactions ORDER BY block DESC LIMIT $1 OFFSET $2", limit, offset)
+			} else {
+				rows, err = db.DB.Query("SELECT block, hash, type, time, fields FROM transactions WHERE TYPE = $1 ORDER BY block DESC LIMIT $2 OFFSET $3", txType, limit, offset)
+			}
+
 			if err != nil {
 				fmt.Println("GetTransactions-sql", err)
 			}
