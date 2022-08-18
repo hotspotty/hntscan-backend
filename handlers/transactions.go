@@ -16,7 +16,7 @@ import (
 
 func GetTransactions(c echo.Context) error {
 
-	var transactions []Transaction
+	transactions := make([]Transaction, 0)
 
 	page := c.QueryParam("page")
 
