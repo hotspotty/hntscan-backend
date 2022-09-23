@@ -45,7 +45,9 @@ func Start() {
 		log.Println("Memcache successfully connected!")
 	}
 
-	MC.DeleteAll()
+	if os.Getenv("CLEARMEMCACHED") == "true" {
+		MC.DeleteAll()
+	}
 
 	log.Println("Databases Successfully connected!")
 }
